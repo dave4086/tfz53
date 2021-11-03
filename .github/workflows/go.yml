@@ -1,0 +1,46 @@
+name: Go
+
+on: [workflow_dispatch]
+
+jobs:
+
+  build:    
+    runs-on: ubuntu-latest
+    steps: 
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
+    - name: Check out into Go module directory
+      uses: actions/checkout@v2
+     
+    - name: Build        
+      run: make build
+
+    - name: vendor mod step     
+      run: go mod vendor
+
+    - name: Loop Through Files
+      run: |                
+        for zone in $(ls ./zones/)
+        do
+          echo $zone
+          go run main.go -domain $zone -zone-file ./zones/$zone >> ./tfzones/$zone.tf
+        done;
+
+    - name: Show file output
+      run: |
+        git add .
+        git commit -m "Add generated files"
+        git push origin master
+
+    #- name: Test2
+    #  run: go run main.go -domain gallylwtestdomain.com -zone-file ./zones/gallylwtestdomain.com > gallylwtestdomain.com.tf
+
+   
+
+
+    
+    

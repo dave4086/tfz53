@@ -1,4 +1,4 @@
-module github.com/carlpett/tfz53
+module github.com/dave4086/tfz53
 
 require (
 	github.com/google/go-cmp v0.3.0
