@@ -1,5 +1,7 @@
 module github.com/dave4086/tfz53
 
+go 1.15
+
 require (
 	github.com/google/go-cmp v0.3.0
 	github.com/miekg/dns v1.0.8
